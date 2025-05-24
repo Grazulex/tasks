@@ -43,6 +43,7 @@ jobs:
         name: tasks
         path: dist/main
     - name: Créer une release GitHub
+      if: startsWith(github.ref, 'refs/tags/')
       id: create_release
       uses: actions/create-release@v1
       with:
