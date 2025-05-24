@@ -36,7 +36,7 @@ jobs:
     - name: Installer PyInstaller
       run: pip install pyinstaller
     - name: Build avec PyInstaller
-      run: pyinstaller main.py -F --onefile
+      run: pyinstaller main.py -F --onefile -n tasks
     - name: Upload du binaire
       uses: actions/upload-artifact@v4
       with:
