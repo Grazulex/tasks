@@ -5,6 +5,9 @@ name: Python application
 
 on:
   push:
+    tags:
+      - 'v*'
+  push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
@@ -40,6 +43,14 @@ jobs:
       with:
         name: tasks
         path: dist/main
+    - name: Créer une release GitHub
+      id: create_release
+      uses: actions/create-release@v1
+      with:
+        tag_name: ${{ github.ref_name }}
+        release_name: Release ${{ github.ref_name }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Upload to GitHub Release
       uses: softprops/action-gh-release@v2
       with:
