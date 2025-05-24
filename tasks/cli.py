@@ -7,6 +7,7 @@ from pathlib import Path
 import json
 import os
 import typer
+import sys
 
 class PrioTask(str, Enum):
     """Priority of the task."""
@@ -196,6 +197,8 @@ def close(
 def get_json_content():
     """Get the content of a JSON file."""
     file =  Path.home() / "tasks.json"
+    if "pytest" in sys.modules:
+        file = Path.home() / "tasks_test.json"
     if os.path.exists(file):
         with open(file, 'r', encoding="utf-8") as f:
             try:
@@ -208,5 +211,7 @@ def get_json_content():
 def set_json_content(tasks):
     """Set the content of a JSON file."""
     file =  Path.home() / "tasks.json"
+    if "pytest" in sys.modules:
+        file = Path.home() / "tasks_test.json"
     with open(file, 'w', encoding='utf-8') as f:
         json.dump(tasks, f, indent=2, ensure_ascii=False)
